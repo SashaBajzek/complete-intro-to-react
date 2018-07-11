@@ -8,6 +8,9 @@ module.exports = {
     path: path.join(__dirname, "public"),
     filename: "bundle.js"
   },
+  devServer: {
+    publicPath: "./public/" // let webpack know where you anticipate bundle being served from
+  },
   resolve: {
     extensions: [".js", ".jsx", ".json"] // order of resolution of extensions
   },
@@ -18,6 +21,12 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        enforce: "pre", // ensure that it runs before babel compiles
+        test: /\.jsx?$/,
+        loader: "eslint-loader", // runs linting only on files that have changed
+        exclude: /node_modules/
+      },
       {
         test: /\.jsx?$/, // regex extension must be .js with x being optional
         loader: "babel-loader" // babel hands it back to webpack
