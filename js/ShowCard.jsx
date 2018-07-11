@@ -1,27 +1,42 @@
 import React from "react";
-import { shape, string } from "prop-types";
+import { string } from "prop-types";
+import styled from "styled-components";
+
+// tagged template literal, returns a styled div
+const Wrapper = styled.div`
+  border: 2px solid #333;
+  border-radius: 4px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  padding-right: 10px;
+  width: 32%;
+`;
+
+const Image = styled.img`
+  float: left;
+  margin-right: 10px;
+  width: 46%;
+`;
 
 const ShowCard = props => (
-  <div className="show-card">
-    <img
-      alt={`${props.show.title} Show Poster`}
-      src={`/public/img/posters/${props.show.poster}`}
+  <Wrapper>
+    <Image
+      alt={`${props.title} Show Poster`}
+      src={`/public/img/posters/${props.poster}`}
     />
     <div>
-      <h3>{props.show.title}</h3>
-      <h4>({props.show.year})</h4>
-      <p>{props.show.description}</p>
+      <h3>{props.title}</h3>
+      <h4>({props.year})</h4>
+      <p>{props.description}</p>
     </div>
-  </div>
+  </Wrapper>
 );
 
 ShowCard.propTypes = {
-  show: shape({
-    poster: string.isRequired,
-    title: string.isRequired,
-    year: string.isRequired,
-    description: string.isRequired
-  }).isRequired
+  poster: string.isRequired,
+  title: string.isRequired,
+  year: string.isRequired,
+  description: string.isRequired
 };
 
 export default ShowCard;
