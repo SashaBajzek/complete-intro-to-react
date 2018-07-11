@@ -9,7 +9,8 @@ module.exports = {
     filename: "bundle.js"
   },
   devServer: {
-    publicPath: "./public/" // let webpack know where you anticipate bundle being served from
+    publicPath: "/public/", // let webpack know where you anticipate bundle being served from
+    historyApiFallback: true // client will worry about routing, allows browser auditor to work.  don't use in production
   },
   resolve: {
     extensions: [".js", ".jsx", ".json"] // order of resolution of extensions
