@@ -4,12 +4,12 @@ import preload from "../data.json";
 
 class Search extends React.Component {
   state = {
-    searchTerm: "this is some sort of debug statement"
+    searchTerm: ""
   };
 
   handleSearchTermChange = event => {
     this.setState({ searchTerm: event.target.value });
-  }
+  };
   render() {
     return (
       <div className="search">
@@ -23,15 +23,22 @@ class Search extends React.Component {
           />
         </header>
         <div>
-          {preload.shows.map(show => (
-            <ShowCard
-              description={show.description}
-              key={show.imdbID}
-              poster={show.poster}
-              title={show.title}
-              year={show.year}
-            />
-          ))}
+          {preload.shows
+            .filter(
+              show =>
+                `${show.title} ${show.description}`
+                  .toUpperCase()
+                  .indexOf(this.state.searchTerm.toUpperCase()) >= 0
+            )
+            .map(show => (
+              <ShowCard
+                description={show.description}
+                key={show.imdbID}
+                poster={show.poster}
+                title={show.title}
+                year={show.year}
+              />
+            ))}
         </div>
       </div>
     );
