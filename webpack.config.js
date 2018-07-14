@@ -1,14 +1,22 @@
 const path = require("path"); // node requires common js
+const webpack = require("webpack"); // needed for hot reloader
 
 module.exports = {
   context: __dirname, // root directory
-  entry: "./js/ClientApp.jsx", // everything included out from here
+  entry: [
+    "react-hot-loader/patch",
+    "webpack-dev-server/client?http://localhost:8080",
+    "webpack/hot/only-dev-server",
+    "./js/ClientApp.jsx"
+  ], // everything included out from here
   devtool: "cheap-eval-source-map", // show where errors are in pretranspiled code
   output: {
     path: path.join(__dirname, "public"),
-    filename: "bundle.js"
+    filename: "bundle.js",
+    publicPath: "./public/"
   },
   devServer: {
+    hot: true,
     publicPath: "/public/", // let webpack know where you anticipate bundle being served from
     historyApiFallback: true // client will worry about routing, allows browser auditor to work.  don't use in production
   },
@@ -20,6 +28,10 @@ module.exports = {
     reasons: true, // gives better errors
     chucks: true
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ],
   module: {
     rules: [
       {
