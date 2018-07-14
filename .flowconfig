@@ -1,0 +1,11 @@
+[ignore]
+<PROJECT_ROOT>/node_modules/styled-components/*
+<PROJECT_ROOT>/node_modules/express/*
+
+[include]
+
+[libs]
+styled-components
+express
+
+[options]
