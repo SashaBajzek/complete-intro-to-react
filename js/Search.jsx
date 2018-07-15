@@ -38,6 +38,7 @@ class Search extends React.Component {
               <ShowCard
                 description={show.description}
                 key={show.imdbID}
+                imdbID={show.imdbID}
                 poster={show.poster}
                 title={show.title}
                 year={show.year}
