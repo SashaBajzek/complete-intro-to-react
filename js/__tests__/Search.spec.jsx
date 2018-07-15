@@ -19,19 +19,19 @@ import ShowCard from "../ShowCard";
 // if there are any tests I don't want to run, put an x in front to skip it.  xdescribe, xit, xtest
 
 test("Search renders correctly", () => {
-  const component = shallow(<Search />);
+  const component = shallow(<Search shows={preload.shows} />);
   expect(component).toMatchSnapshot();
 });
 
 test("Search should render correct amount of shows", () => {
-  const component = shallow(<Search />);
+  const component = shallow(<Search shows={preload.shows} />);
   // enzyme can find a component based on the react component, ShowCard
   expect(component.find(ShowCard).length).toEqual(preload.shows.length);
 });
 
 test("Search should render correct amount of shows based on search term", () => {
   const searchWord = "black";
-  const component = shallow(<Search />);
+  const component = shallow(<Search shows={preload.shows} />);
   // enzyme can also find a component based on css selectors, such as input
   component.find("input").simulate("change", { target: { value: searchWord } });
   const showCount = preload.shows.filter(

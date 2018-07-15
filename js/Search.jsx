@@ -2,13 +2,16 @@
 
 import React from "react";
 import ShowCard from "./ShowCard";
-import preload from "../data.json";
 
 class Search extends React.Component {
+  // state is a variable on the Search class
   state = {
     searchTerm: ""
   };
-
+  // props is different than state, it's just for typing
+  props: {
+    shows: Array<Show> // show is in types.js
+  };
   handleSearchTermChange = (
     event: SyntheticKeyboardEvent & { target: HTMLInputElement }
   ) => {
@@ -27,7 +30,7 @@ class Search extends React.Component {
           />
         </header>
         <div>
-          {preload.shows
+          {this.props.shows
             .filter(
               show =>
                 `${show.title} ${show.description}`
