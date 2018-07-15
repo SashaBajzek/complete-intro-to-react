@@ -1,6 +1,7 @@
 // @flow
 
 import React from "react";
+import Header from "./Header";
 import ShowCard from "./ShowCard";
 
 class Search extends React.Component {
@@ -20,15 +21,11 @@ class Search extends React.Component {
   render() {
     return (
       <div className="search">
-        <header>
-          <h1>svideo</h1>
-          <input
-            value={this.state.searchTerm}
-            type="text"
-            placeholder="Search"
-            onChange={this.handleSearchTermChange}
-          />
-        </header>
+        <Header
+          showSearch
+          handleSearchTermChange={this.handleSearchTermChange}
+          searchTerm={this.state.searchTerm}
+        />
         <div>
           {this.props.shows
             .filter(
