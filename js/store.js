@@ -1,6 +1,7 @@
 // @flow
 
-import { createStore, compose } from "redux";
+import { createStore, compose, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
 import reducer from "./reducers";
 
 // if typeof window === "object", aka if in the browser, so it will still run in node for ssr
@@ -8,6 +9,7 @@ import reducer from "./reducers";
 const store = createStore(
   reducer,
   compose(
+    applyMiddleware(thunk),
     typeof window === "object" &&
       typeof window.devToolsExtension !== "undefined"
       ? window.devToolsExtension()

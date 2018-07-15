@@ -1,29 +1,28 @@
 // @flow
 
 import React from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import { getAPIDetails } from "./actionCreators";
 import Header from "./Header";
 import Spinner from "./Spinner";
 
 class Details extends React.Component {
-  state = {
-    apiData: { rating: "" }
-  };
   componentDidMount() {
-    axios
-      .get(`http://localhost:3000/${this.props.show.imdbID}`)
-      .then((response: { data: { rating: string } }) => {
-        this.setState({ apiData: response.data });
-      });
+    // only need to get the rating once, so if they visit page again, don't need to request again
+    if (!this.props.rating) {
+      this.props.getAPIData();
+    }
   }
   props: {
-    show: Show
+    show: Show,
+    rating: string,
+    getAPIData: Function
   };
   render() {
     const { description, poster, title, trailer, year } = this.props.show;
     let ratingComponent;
-    if (this.state.apiData.rating) {
-      ratingComponent = <h3>{this.state.apiData.rating}</h3>;
+    if (this.props.rating) {
+      ratingComponent = <h3>{this.props.rating}</h3>;
     } else {
       ratingComponent = <Spinner />;
     }
@@ -53,4 +52,20 @@ class Details extends React.Component {
   }
 }
 
-export default Details;
+// ownProps is props passed down from the parent
+const mapStateToProps = (state, ownProps) => {
+  const apiData = state.apiData[ownProps.show.imdbID]
+    ? state.apiData[ownProps.show.imdbID]
+    : { apiData: "" };
+  return {
+    rating: apiData.rating
+  };
+};
+
+const mapDispatchToProps = (dispatch: Function, ownProps) => ({
+  getAPIData() {
+    dispatch(getAPIDetails(ownProps.show.imdbID));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

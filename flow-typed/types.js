@@ -6,7 +6,8 @@ export type Show = {
   year: string,
   imdbID: string,
   trailer: string,
-  poster: string
+  poster: string,
+  rating?: string // only have rating data when it comes back from api
 };
 
 declare var module: {
@@ -15,7 +16,7 @@ declare var module: {
   }
 };
 
-declare type ActionType = "SET_SEARCH_TERM";
+declare type ActionType = "SET_SEARCH_TERM" | "ADD_API_DATA";
 
 // A and P generic types
 // <> are parameters for flow
@@ -24,4 +25,6 @@ declare type ActionT<A: ActionType, P> = {|
   payload: P
 |};
 
-export type Action = ActionT<"SET_SEARCH_TERM", string>;
+export type Action =
+  | ActionT<"SET_SEARCH_TERM", string>
+  | ActionT<"ADD_API_DATA", Show>;
