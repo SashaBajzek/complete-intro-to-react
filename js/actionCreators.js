@@ -1,4 +1,4 @@
-import { CLEAR_SEARCH_TERM, SET_SEARCH_TERM } from "./actions";
+import { SET_SEARCH_TERM } from "./actions";
 
 export function setSearchTerm(searchTerm) {
   return {
@@ -7,9 +7,4 @@ export function setSearchTerm(searchTerm) {
   };
 }
 
-export function clearSearchTerm() {
-  return {
-    type: CLEAR_SEARCH_TERM,
-    payload: ""
-  };
-}
+export default setSearchTerm;

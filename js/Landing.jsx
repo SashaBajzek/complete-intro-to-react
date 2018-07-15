@@ -4,7 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import type { RouterHistory } from "react-router-dom";
-import { setSearchTerm, clearSearchTerm } from "./actionCreators";
+import { setSearchTerm } from "./actionCreators";
 
 class Landing extends React.Component {
   props: {
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(setSearchTerm(event.target.value));
   },
   clearSearchTerm() {
-    dispatch(clearSearchTerm());
+    dispatch(setSearchTerm(""));
   }
 });
 
