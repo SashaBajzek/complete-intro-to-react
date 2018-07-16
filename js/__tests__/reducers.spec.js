@@ -1,3 +1,5 @@
+// @flow
+
 import reducers from "../reducers";
 
 // copy and paste tests from redux devtools
